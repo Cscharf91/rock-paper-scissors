@@ -5,10 +5,49 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+
+  <button id = rock>Rock</button>
+  <button id = paper>Paper</button>
+  <button id = scissors>Scissors</button>
+  <div id = results></div>
+  <div id = scoreboard></div>
+
   <script>
 
-win = 0;
-loss = 0;
+let win = 0;
+let loss = 0;
+let playerSelection;
+
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
+const scissorsBtn = document.querySelector('#scissors');
+
+let results = document.querySelector('#results');
+let scoreBoard = document.querySelector('#scoreboard');
+
+rockBtn.addEventListener('click', () => {
+playerSelection = 'rock';
+computerSelection = computerPlay();
+if (win < 5 && loss < 5) {
+        results.textContent = playRound(playerSelection,computerSelection);
+    }
+});
+
+paperBtn.addEventListener('click', () => {
+playerSelection = 'paper';
+computerSelection = computerPlay();
+if (win < 5 && loss < 5) {
+        results.textContent = playRound(playerSelection,computerSelection);
+    }
+});
+
+scissorsBtn.addEventListener('click', () => {
+playerSelection = 'scissors';
+computerSelection = computerPlay();
+    if (win < 5 && loss < 5) {
+        results.textContent = playRound(playerSelection,computerSelection);
+    }
+});
 
 
 function computerPlay() {
@@ -17,74 +56,83 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection.toLowerCase() === 'rock') {
+ 
+    if (playerSelection === 'rock') {
     if (computerSelection === 'scissors') {
-      win++;
-      return 'You win! Rock beats scissors.';
+      ++win;
+      if (win < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You win! Rock beats scissors.';
+      }
+      else gameWin();
     }  
     if (computerSelection === 'paper') {
-      loss++;
-      return 'You lose! Paper beats rock.';
-    } else {
-      return 'Tie game! Rock and Rock.';
+      ++loss;
+      if (loss < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You lose! Paper beats rock.'
+      }
+      else gameLoss();
+    } if (computerSelection === 'rock') {
+      scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+      return 'Tie game!';
     }
   }
 
-  if (playerSelection.toLowerCase() === 'paper') {
+  if (playerSelection === 'paper') {
     if (computerSelection === 'rock') {
-      win++;
-      return 'You win! Paper beats rock.';
+      ++win;
+      if (win < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You win! Paper beats rock.';
+      }
+      else gameWin();
     }  
     if (computerSelection === 'scissors') {
-      loss++;
-      return 'You lose! Scissors beats paper.';
-    } else {
-      return 'Tie game! Paper and Paper.';
+      ++loss;
+      if (loss < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You lose! Scissors beats paper.'
+      }
+      else gameLoss();
+    } if (computerSelection === 'paper') {
+      scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+      return 'Tie game!';
     }
   }
 
-  if (playerSelection.toLowerCase() === 'scissors') {
+  if (playerSelection === 'scissors') {
     if (computerSelection === 'paper') {
-      win++;
-      return 'You win! Scissors beats paper.';
+      ++win;
+      if (win < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You win! Scissors beats paper.';
+      }
+      else gameWin();
     }  
     if (computerSelection === 'rock') {
-      loss++;
-      return 'You lose! Rock beats scissors.';
-    } else {
-      return 'Tie game! Scissors and scissors.';
+      ++loss;
+      if (loss < 5) {
+          scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+          return 'You lose! Rock beats scissors.'
+      }
+      else gameLoss();
+    } if (computerSelection === 'scissors') {
+      scoreBoard.textContent = 'Score: P1: ' + win + ' CPU: ' + loss
+      return 'Tie game!';
     }
-
-  } else {
-    return 'Error: That\'s not rock paper OR scissor!';
   }
+
 };
 
-function game() {
-round = 0;
-while (round < 5) {
-  playerSelection = prompt('Enter rock, paper, or scissors.');
-  computerSelection = computerPlay();
-  console.log(playRound(playerSelection,computerSelection));
-  round++;
+
+function gameWin() {
+    scoreBoard.textContent = ' You WIN in a first to 5! Score: P1: ' + win + ' CPU: ' + loss
+} 
+
+function gameLoss() {
+    scoreBoard.textContent = 'You LOSE in a first to 5! Score: P1: ' + win + ' CPU: ' + loss
 }
-
-  if (round = 5) {
-
-if (win > loss) {
-  console.log('You Win the Game! Player: ' + win + ', Computer: ' + loss);
-} 
-
-if (win < loss) {
-  console.log('You Lose the Game! Player: ' + win + ', Computer: ' + loss);
-} 
-
-else {
-  console.log('It\'s a draw!');
-} }
-};
-
-game();
   </script>
 </body>
 </html>
